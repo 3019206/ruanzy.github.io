@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://3019206.github.io/ruanzy.github.io">
-  <title>Archives: 2022 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Makefile 入门基本规则12目标：依赖 (tab)规则  目标 &#x3D; 要生成的文件 依赖 &#x3D; 生产目标所需要的文件 规则 &#x3D; 由依赖生产目标所需的命令 （如编译命令gcc …）   四步写Makefile给出三个C文件 main.c,fun1.c,fun2.c  第一版12app: main.c fun1.c fun2.c     gcc main.c fun1.">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://3019206.github.io/ruanzy.github.io/archives/2022/index.html">
+<meta property="og:url" content="https://3019206.github.io/ruanzy.github.io/2022/04/23/Makefile%20%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Makefile 入门基本规则12目标：依赖 (tab)规则  目标 &#x3D; 要生成的文件 依赖 &#x3D; 生产目标所需要的文件 规则 &#x3D; 由依赖生产目标所需的命令 （如编译命令gcc …）   四步写Makefile给出三个C文件 main.c,fun1.c,fun2.c  第一版12app: main.c fun1.c fun2.c     gcc main.c fun1.">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-23T07:18:43.539Z">
+<meta property="article:modified_time" content="2022-04-23T07:18:43.540Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -150,97 +154,161 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Makefile 入门" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Makefile-入门"><a href="#Makefile-入门" class="headerlink" title="Makefile 入门"></a>Makefile 入门</h1><h2 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a><strong>基本规则</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目标：依赖 </span><br><span class="line">(tab)规则</span><br></pre></td></tr></table></figure>
+<ul>
+<li>目标 &#x3D; 要生成的文件</li>
+<li>依赖 &#x3D; 生产目标所需要的文件</li>
+<li>规则 &#x3D; 由依赖生产目标所需的命令 （如编译命令gcc …）   <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="四步写Makefile"><a href="#四步写Makefile" class="headerlink" title="四步写Makefile"></a><strong>四步写Makefile</strong></h2>给出三个C文件 main.c,fun1.c,fun2.c  <h3 id="第一版"><a href="#第一版" class="headerlink" title="第一版"></a><strong>第一版</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app: main.c fun1.c fun2.c </span><br><span class="line">    gcc main.c fun1.c fun2.c -o app</span><br></pre></td></tr></table></figure>
+缺点：  </li>
+<li>不适用于大型项目  </li>
+<li>任何文件有修改就要重新编译整个项目<h3 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a><strong>第二版</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">app: main.o fun1.o fun2.o </span><br><span class="line">    gcc main.o fun1.o fun2.o -o app  </span><br><span class="line"></span><br><span class="line">main.o: main.c </span><br><span class="line">    gcc -c main.c -o main.o  </span><br><span class="line"></span><br><span class="line">fun1.o: fun1.c </span><br><span class="line">    gcc -c fun1.c -o fun1.o </span><br><span class="line"></span><br><span class="line">fun2.o: fun2.c </span><br><span class="line">    gcc -c fun2.c -o fun2.o</span><br></pre></td></tr></table></figure>
+目标的生成和更新规则：  </li>
+<li>若依赖不存在，则查找规则来生成该依赖</li>
+<li>若一个目标的任何一个依赖有更新 或 目标的时间晚于依赖，则重新生成该目标</li>
+</ul>
+<p>改进：  </p>
+<ul>
+<li>当某个文件发生改动时，只需重新编译该文件</li>
+</ul>
+<p>缺点：  </p>
+<ul>
+<li>可以用变量替换重复的内容</li>
+<li>对于相似的规则可以用一条模式规则替代  <h3 id="第三版"><a href="#第三版" class="headerlink" title="第三版"></a><strong>第三版</strong></h3></li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/ruanzy.github.io/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/ruanzy.github.io/2022/04/23/Makefile%20%E5%85%A5%E9%97%A8/" class="archive-article-date">
-  	<time datetime="2022-04-23T07:18:43.539Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://3019206.github.io/ruanzy.github.io/2022/04/23/Makefile%20%E5%85%A5%E9%97%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/ruanzy.github.io/2022/04/23/My-First-Blog/" class="archive-article-date">
-  	<time datetime="2022-04-23T05:29:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/ruanzy.github.io/2022/04/23/My-First-Blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">My First Blog</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/ruanzy.github.io/2022/04/23/My-First-Blog/">My First Blog</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/ruanzy.github.io/2022/04/23/hello-world/" class="archive-article-date">
-  	<time datetime="2022-04-23T05:25:45.748Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/ruanzy.github.io/2022/04/23/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -263,8 +331,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

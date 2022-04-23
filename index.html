@@ -152,6 +152,74 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Makefile 入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Makefile-入门"><a href="#Makefile-入门" class="headerlink" title="Makefile 入门"></a>Makefile 入门</h1><h2 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a><strong>基本规则</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目标：依赖 </span><br><span class="line">(tab)规则</span><br></pre></td></tr></table></figure>
+<ul>
+<li>目标 &#x3D; 要生成的文件</li>
+<li>依赖 &#x3D; 生产目标所需要的文件</li>
+<li>规则 &#x3D; 由依赖生产目标所需的命令 （如编译命令gcc …）   <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="四步写Makefile"><a href="#四步写Makefile" class="headerlink" title="四步写Makefile"></a><strong>四步写Makefile</strong></h2>给出三个C文件 main.c,fun1.c,fun2.c  <h3 id="第一版"><a href="#第一版" class="headerlink" title="第一版"></a><strong>第一版</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app: main.c fun1.c fun2.c </span><br><span class="line">    gcc main.c fun1.c fun2.c -o app</span><br></pre></td></tr></table></figure>
+缺点：  </li>
+<li>不适用于大型项目  </li>
+<li>任何文件有修改就要重新编译整个项目<h3 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a><strong>第二版</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">app: main.o fun1.o fun2.o </span><br><span class="line">    gcc main.o fun1.o fun2.o -o app  </span><br><span class="line"></span><br><span class="line">main.o: main.c </span><br><span class="line">    gcc -c main.c -o main.o  </span><br><span class="line"></span><br><span class="line">fun1.o: fun1.c </span><br><span class="line">    gcc -c fun1.c -o fun1.o </span><br><span class="line"></span><br><span class="line">fun2.o: fun2.c </span><br><span class="line">    gcc -c fun2.c -o fun2.o</span><br></pre></td></tr></table></figure>
+目标的生成和更新规则：  </li>
+<li>若依赖不存在，则查找规则来生成该依赖</li>
+<li>若一个目标的任何一个依赖有更新 或 目标的时间晚于依赖，则重新生成该目标</li>
+</ul>
+<p>改进：  </p>
+<ul>
+<li>当某个文件发生改动时，只需重新编译该文件</li>
+</ul>
+<p>缺点：  </p>
+<ul>
+<li>可以用变量替换重复的内容</li>
+<li>对于相似的规则可以用一条模式规则替代  <h3 id="第三版"><a href="#第三版" class="headerlink" title="第三版"></a><strong>第三版</strong></h3></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/ruanzy.github.io/2022/04/23/Makefile%20%E5%85%A5%E9%97%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-My-First-Blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
